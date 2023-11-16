@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISR</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/navbar-fixed.css">
+    <link rel="stylesheet" type="text/css" href="./css/grid.css">
+    <link rel="stylesheet" type="text/css" href="./css/footer.css">
+    <link rel="stylesheet" type="text/css" href="./css/slider.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/footers/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <script rel="stylesheet" href="./js/slider.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/fetch.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src='https://get.mavo.io/mavo.js'></script>
+
+</head>
+<script>
+    function downloadImages(imageSrcArray) {
+        // Create an array of promises for each image download
+        var promises = imageSrcArray.map(function (imageSrc) {
+            return fetch(imageSrc)
+                .then(response => response.blob())
+                .then(blob => {
+                    // Create a temporary link element
+                    var link = document.createElement('a');
+
+                    // Set the href attribute of the link to the blob data
+                    link.href = window.URL.createObjectURL(blob);
+
+                    // Set the download attribute with the desired file name (extracted from the URL)
+                    link.download = imageSrc.substring(imageSrc.lastIndexOf('/') + 1);
+
+                    // Append the link to the document
+                    document.body.appendChild(link);
+
+                    // Trigger a click event on the link to start the download
+                    link.click();
+
+                    // Remove the link from the document
+                    document.body.removeChild(link);
+                });
+        });
+
+        // Use Promise.all to wait for all promises to resolve
+        Promise.all(promises)
+            .then(() => {
+                console.log('All images downloaded successfully.');
+            })
+            .catch(error => {
+                console.error('Error downloading images:', error);
+            });
+    }
+</script>
+
+<body style="background-color: white; font-family: Open Sans, sans-serif;">
+
+    <nav class="navbar navbar-expand-md border-bottom fixed-top bg-light fw-medium">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../demo/index.html">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Examples</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../comparison/index.html">Comparison</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="container px-4 py-5">
+        <h2 class="pb-2 fw-bold border-bottom">Sample photos processed on HAT-S models with upscale x4.</h2>
+        <br>
+        <div class="row mb-3 text-center">
+            <div class="col-md-6 themed-grid-col">
+                <p class="h3">HAT-S</p>
+                <div class="block block--comparison" mv-app="slider" storage="local" mv-mode="edit">
+                    <div class="block__image" style="--range: [slide]%;">
+                        <div class="block__img block__img--first">
+                            <img src="../comparison/images/Visualization/Set5/bird_HAT-S_SRx4_from_scratch.png"
+                                class="img-cover">
+                        </div>
+
+                        <div class="block__img block__img--last">
+                            <img src="../comparison/images/Visualization/Set5/LR-bird.png" class="img-cover">
+                        </div>
+
+                        <input class="block__slide" type="range" min="0" max="100" step="0.05" value="50"
+                            property="slide">
+                    </div>
+                </div>
+                <div class="container-sm themed-container text-end">
+                    <button type="button" class="btn btn-success"
+                        onclick="downloadImages(['../comparison/images/Visualization/Set5/bird_HAT-S_SRx4_from_scratch.png', '../comparison/images/Visualization/Set5/LR-bird.png'])">Download</button>
+                </div>
+            </div>
+            <div class="col-md-6 themed-grid-col">
+                <p class="h3">HAT-S with Mixlosses</p>
+                <div class="block block--comparison" mv-app="slider" storage="local" mv-mode="edit">
+                    <div class="block__image" style="--range: [slide]%;">
+                        <div class="block__img block__img--first">
+                            <img src="../comparison/images/Visualization/Manga109/Arisa_HAT-S_SRx4_MixLosses.png"
+                                class="img-cover">
+                        </div>
+
+                        <div class="block__img block__img--last">
+                            <img src="../comparison/images/Visualization/Manga109/LR-Arisa.png" class="img-cover">
+                        </div>
+
+                        <input class="block__slide" type="range" min="0" max="100" step="0.05" value="50"
+                            property="slide">
+                    </div>
+                </div>
+                <div class="container-sm themed-container text-end">
+                    <button type="button" class="btn btn-success"
+                        onclick="downloadImages(['../comparison/images/Visualization/Manga109/Arisa_HAT-S_SRx4_MixLosses.png', '../comparison/images/Visualization/Manga109/LR-Arisa.png'])">Download</button>
+                </div>
+            </div>
+        </div>
+        <div class="b-example-divider" style="background-color: white;"></div>
+        <div class="row mb-3 text-center">
+            <div class="col-md-6 themed-grid-col">
+                <p class="h3">HAT-S with PerceptualLoss</p>
+                <div class="block block--comparison" mv-app="slider" storage="local" mv-mode="edit">
+                    <div class="block__image" style="--range: [slide]%;">
+                        <div class="block__img block__img--first">
+                            <img src="../comparison/images/Visualization/BSD100/37073_HAT-S_SRx4_PerceptualLoss_conv2_2.png"
+                                class="img-cover">
+                        </div>
+
+                        <div class="block__img block__img--last">
+                            <img src="../comparison/images/Visualization/BSD100/LR-37073.png" class="img-cover">
+                        </div>
+
+                        <input class="block__slide" type="range" min="0" max="100" step="0.05" value="50"
+                            property="slide">
+                    </div>
+                </div>
+                <div class="container-sm themed-container text-end">
+                    <button type="button" class="btn btn-success"
+                        onclick="downloadImages(['../comparison/images/Visualization/BSD100/37073_HAT-S_SRx4_PerceptualLoss_conv2_2.png', '../comparison/images/Visualization/BSD100/LR-37073.png'])">Download</button>
+                </div>
+            </div>
+            <div class="col-md-6 themed-grid-col">
+                <p class="h3">HAT-S with Patch-Mosaic</p>
+                <div class="block block--comparison" mv-app="slider" storage="local" mv-mode="edit">
+                    <div class="block__image" style="--range: [slide]%;">
+                        <div class="block__img block__img--first">
+                            <img src="../comparison/images/Visualization/Set14/lenna_HAT-S_SRx4_Patch-Mosaic.png"
+                                class="img-cover">
+                        </div>
+
+                        <div class="block__img block__img--last">
+                            <img src="../comparison/images/Visualization/Set14/LR-lenna.png" class="img-cover">
+                        </div>
+
+                        <input class="block__slide" type="range" min="0" max="100" step="0.05" value="50"
+                            property="slide">
+                    </div>
+                </div>
+                <div class="container-sm themed-container text-end">
+                    <button type="button" class="btn btn-success"
+                        onclick="downloadImages(['../comparison/images/Visualization/Set14/lenna_HAT-S_SRx4_Patch-Mosaic.png', '../comparison/images/Visualization/Set14/LR-lenna.png'])">Download</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <h2 class="pb-2 fw-bold border-bottom">Sample photos processed on HAT-S models with upscale x8.</h2>
+        <br>
+        <div class="row mb-3 text-center">
+            <div class="col-md-6 themed-grid-col">
+                <p class="h3">HAT-S</p>
+                <div class="block block--comparison" mv-app="slider" storage="local" mv-mode="edit">
+                    <div class="block__image" style="--range: [slide]%;">
+                        <div class="block__img block__img--first">
+                            <img src="../comparison/images/Visualization/Set5/bird_HAT-S_SRx8_from_scratch.png"
+                                class="img-cover">
+                        </div>
+
+                        <div class="block__img block__img--last">
+                            <img src="../comparison/images/Visualization/Set5/LRx8-bird.png" class="img-cover">
+                        </div>
+
+                        <input class="block__slide" type="range" min="0" max="100" step="0.05" value="50"
+                            property="slide">
+                    </div>
+                </div>
+                <div class="container-sm themed-container text-end">
+                    <button type="button" class="btn btn-success"
+                        onclick="downloadImages(['../comparison/images/Visualization/Set5/bird_HAT-S_SRx8_from_scratch.png', '../comparison/images/Visualization/Set5/LRx8-bird.png'])">Download</button>
+                </div>
+            </div>
+            <div class="col-md-6 themed-grid-col">
+                <p class="h3">HAT-S with Mixlosses</p>
+                <div class="block block--comparison" mv-app="slider" storage="local" mv-mode="edit">
+                    <div class="block__image" style="--range: [slide]%;">
+                        <div class="block__img block__img--first">
+                            <img src="../comparison/images/Visualization/Manga109/Arisa_HAT-S_SRx8_MixLosses.png"
+                                class="img-cover">
+                        </div>
+
+                        <div class="block__img block__img--last">
+                            <img src="../comparison/images/Visualization/Manga109/LRx8-Arisa.png" class="img-cover">
+                        </div>
+
+                        <input class="block__slide" type="range" min="0" max="100" step="0.05" value="50"
+                            property="slide">
+                    </div>
+                </div>
+                <div class="container-sm themed-container text-end">
+                    <button type="button" class="btn btn-success"
+                        onclick="downloadImages(['../comparison/images/Visualization/Manga109/Arisa_HAT-S_SRx8_MixLosses.png', '../comparison/images/Visualization/Manga109/LRx8-Arisa.png'])">Download</button>
+                </div>
+            </div>
+        </div>
+        <div class="b-example-divider" style="background-color: white;"></div>
+        <div class="row mb-3 text-center">
+            <div class="col-md-6 themed-grid-col">
+                <p class="h3">HAT-S with PerceptualLoss</p>
+                <div class="block block--comparison" mv-app="slider" storage="local" mv-mode="edit">
+                    <div class="block__image" style="--range: [slide]%;">
+                        <div class="block__img block__img--first">
+                            <img src="../comparison/images/Visualization/BSD100/37073_HAT-S_SRx8_PerceptualLoss_conv2_2.png"
+                                class="img-cover">
+                        </div>
+
+                        <div class="block__img block__img--last">
+                            <img src="../comparison/images/Visualization/BSD100/LRx8-37073.png" class="img-cover">
+                        </div>
+
+                        <input class="block__slide" type="range" min="0" max="100" step="0.05" value="50"
+                            property="slide">
+                    </div>
+                </div>
+                <div class="container-sm themed-container text-end">
+                    <button type="button" class="btn btn-success"
+                        onclick="downloadImages(['../comparison/images/Visualization/BSD100/37073_HAT-S_SRx8_PerceptualLoss_conv2_2.png', '../comparison/images/Visualization/BSD100/LRx8-37073.png'])">Download</button>
+                </div>
+            </div>
+            <div class="col-md-6 themed-grid-col">
+                <p class="h3">HAT-S with Patch-Mosaic</p>
+                <div class="block block--comparison" mv-app="slider" storage="local" mv-mode="edit">
+                    <div class="block__image" style="--range: [slide]%;">
+                        <div class="block__img block__img--first">
+                            <img src="../comparison/images/Visualization/Set14/lenna_HAT-S_SRx8_Patch-Mosaic.png"
+                                class="img-cover">
+                        </div>
+
+                        <div class="block__img block__img--last">
+                            <img src="../comparison/images/Visualization/Set14/LRx8-lenna.png" class="img-cover">
+                        </div>
+
+                        <input class="block__slide" type="range" min="0" max="100" step="0.05" value="50"
+                            property="slide">
+                    </div>
+                </div>
+                <div class="container-sm themed-container text-end">
+                    <button type="button" class="btn btn-success"
+                        onclick="downloadImages(['../comparison/images/Visualization/Set14/lenna_HAT-S_SRx8_Patch-Mosaic.png', '../comparison/images/Visualization/Set14/LRx8-lenna.png'])">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="bootstrap" viewBox="0 0 118 94">
+            <title>Bootstrap</title>
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z">
+            </path>
+        </symbol>
+        <symbol id="facebook" viewBox="0 0 16 16">
+            <path
+                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+
+        </symbol>
+        <symbol id="drive" viewBox="0 0 16 16" alt="drive">
+            <path d="M4.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+            <path
+                d="M16 11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V9.51c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198V11zM3.655 4.26 1.592 8.043C1.724 8.014 1.86 8 2 8h12c.14 0 .276.014.408.042L12.345 4.26a.5.5 0 0 0-.439-.26H4.094a.5.5 0 0 0-.44.26zM1 10v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z" />
+
+        </symbol>
+        <symbol id="github" viewBox="0 0 16 16" alt="github">
+            <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+        </symbol>
+    </svg>
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-body-secondary">Group GFA23AI17 - project FA23AI08</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-body-secondary"
+                        href="https://github.com/ngoduythinh250601/HAT-experiment.git" target="_blank"><svg class="bi"
+                            width="24" height="24">
+                            <use xlink:href="#github"></use>
+                        </svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary"
+                        href="https://drive.google.com/drive/folders/1rtrWZ_BP1QOc4smIZqenU_G7Uro3pOQW?usp=sharing"
+                        target="_blank"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#drive"></use>
+                        </svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="https://www.facebook.com/thinhduy2506 "
+                        target="_blank"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#facebook"></use>
+                        </svg></a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+
+</html>

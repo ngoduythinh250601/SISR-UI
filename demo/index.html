@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SISR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/list-groups/"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"> -->
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/list-groups.css">
+    <link rel="stylesheet" type="text/css" href="./css/navbar-fixed.css">
+    <link rel="stylesheet" type="text/css" href="./css/grid.css">
+    <link rel="stylesheet" type="text/css" href="./css/footer.css">
+    <link rel="stylesheet" type="text/css" href="./css/slider-image.css">
+    <!-- <link rel="stylesheet" type="text/css" href="node_modules/img-slider/distr/imgslider.min.css"> -->
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/footers/"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"> -->
+    <script src="./js/script.js"></script>
+    <!-- <script type="text/javascript" src="node_modules/img-slider/distr/imgslider.min.js"></script> -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script> -->
+    <script src='https://s3-us-west-2.amazonaws.com/guruscriptz/image-comparison.js'></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/canvg@1.5.3/dist/browser/canvg.min.js"></script> -->
+</head>
+
+<body style="background-color: white; font-family: Open Sans, sans-serif;">
+    <nav class="navbar navbar-expand-md border-bottom fixed-top bg-light fw-medium">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../example/index.html">Examples</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../comparison/index.html">Comparison</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <div class="container px-4">
+        <div class="container-fluid my-1 themed-container text-medium" style="color:black;">
+            <div class="themed-container text-center fw-bolder display-6 mx-1" style="color: black;">ENHANCE SINGLE
+                IMAGE
+                SUPER
+                RESOLUTION</div>
+            <div class="row mb-3 mx-1 text-center">
+                <div class="col-6 themed-grid-col">
+                    <div class="bd-example-snippet bd-code-snippet">
+                        <div class="bd-example m-0 border-0">
+                            <figure class="figure">
+                                <svg class="bd-placeholder-img figure-img img-fluid rounded" width="300" height="200"
+                                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 300x200"
+                                    preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#868e96" id="placeholder-rect"></rect>
+                                    <text x="50%" y="50%" fill="#dee2e6" dy=".3em" id="thumbnil">Upload image</text>
+                                </svg>
+                                <figcaption class="figure-caption">Low resolution image need increased quality
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-start" for="customFile">Choose file from local storage</label>
+                            <input type="file" class="form-control" accept="image/png, image/jpeg, image/jpg"
+                                id="image-file" onchange="displayImage(this)">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6 themed-grid-col">
+                    <figure class="figure">
+                        <svg class="bd-placeholder-img figure-img img-fluid rounded" width="400" height="300"
+                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 400x300"
+                            preserveAspectRatio="none" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#868e96" id="SRImage-rect"></rect>
+                            <text style="white-space: pre-wrap" x="50%" y="50%" fill="#dee2e6" dy=".3em"
+                                id="SRImage-text">
+                                Super resolution image
+                            </text>
+                        </svg>
+                        <figcaption class="figure-caption">Super resolution has improved images using the HAT-S model
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row mb-3 mx-1 text-center">
+                <div class="col-6 themed-grid-col text-end">
+                    <div class="col d-flex flex-col align-items-center justify-content-between">
+                        <p class="card-text" id="modelNameDisplay">Model name: </p>
+                        <button type="button" class="btn btn-success run" id="upload" style="background-color: gray"
+                            disabled>Run</button>
+                    </div>
+                </div>
+                <div class="col-6 d-flex flex-col align-items-center justify-content-end themed-grid-col text-end">
+                    <div id="processingTime" style="margin-right: 2%;"></div>
+                    <button type="button" class="btn btn-success download" id="download" style="background-color: gray"
+                        disabled>Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="b-example-divider" style="background-color: white;"></div>
+    <div class="container px-4">
+        <div class="container themed-container text-center" style="color: black;">
+            <div class="display-6 fw-normal">Model selection</div>
+            <div class="d-flex flex-row align-items-center justify-content-center">
+                <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+                    <div class="list-group max-width-600px list-group-checkable d-grid gap-2 border-0">
+                        <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableModels"
+                            id="listGroupCheckableModels1" value="" checked="">
+                        <label class="list-group-item rounded-3 position-relative" for="listGroupCheckableModels1">
+                            <div class="spinner-border text-success position-absolute end-100 top-0"
+                                style="display: none" role="status" id="spinner3">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            HAT-S
+                            <span class="d-block small opacity-50">Original HAT-S model without any modifications</span>
+                        </label>
+
+                        <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableModels"
+                            id="listGroupCheckableModels2" value="">
+                        <label class="list-group-item rounded-3 position-relative" for="listGroupCheckableModels2">
+                            <div class="spinner-border text-success position-absolute end-100 top-0"
+                                style="display: none" role="status" id="spinner4">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            HAT-S with Patch-Mosaic
+                            <span class="d-block small opacity-50">The HAT-S model applies Patch-Mosaic data
+                                augmentation</span>
+                        </label>
+
+                        <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableModels"
+                            id="listGroupCheckableModels3" value="">
+                        <label class="list-group-item rounded-3 position-relative" for="listGroupCheckableModels3">
+                            <div class="spinner-border text-success position-absolute end-100 top-0"
+                                style="display: none" role="status" id="spinner5">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            HAT-S with Perceptual Loss
+                            <span class="d-block small opacity-50">The HAT-S model applies Perceptual Loss</span>
+                        </label>
+
+                        <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableModels"
+                            id="listGroupCheckableModels4" value="">
+
+                        <label class="list-group-item rounded-3 position-relative" for="listGroupCheckableModels4">
+                            <div class="spinner-border text-success position-absolute end-100 top-0"
+                                style="display: none" role="status" id="spinner6">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            HAT-S with MixLosses Loss
+                            <span class="d-block small opacity-50">The HAT-S model uses L1 Loss and Perceptual Loss
+                                simultaneously</span>
+                        </label>
+
+                    </div>
+                </div>
+                <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+                    <div class="list-group max-width-300px list-group-checkable d-grid gap-2 border-0">
+                        <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableUpscales"
+                            id="listGroupCheckableUpscales1" value="" checked="">
+                        <label class="list-group-item rounded-3 position-relative" for="listGroupCheckableUpscales1">
+                            <div class="spinner-border text-success position-absolute end-100 top-0"
+                                style="display: none" role="status" id="spinner1">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            Upscale x4
+                            <span class="d-block small opacity-50">Supports upscaling images up to 4 times</span>
+                        </label>
+
+                        <input class="list-group-item-check pe-none" type="radio" name="listGroupCheckableUpscales"
+                            id="listGroupCheckableUpscales2" value="">
+                        <label class="list-group-item rounded-3 position-relative" for="listGroupCheckableUpscales2">
+                            <div class="spinner-border text-success position-absolute end-100 top-0"
+                                style="display: none" role="status" id="spinner2">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            Upscale x8
+                            <span class="d-block small opacity-50">Supports upscaling images up to 8 times</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="b-example-divider" style="background-color: white;"></div>
+    <div class="px-4 py-5">
+        <div class="themed-container text-center display-6 fw-normal" style="color: black;">Quick comparison</div>
+        <div class="row row-cols-1 row-cols-md-4 gx-4 text-center">
+            <div class="col themed-grid-col is-visible">
+                HAT-S | Upscale X4
+                <figure class="cd-image-container">
+                    <img src="./slidder_image/butterfly_250000_X4_from_scratch.png" alt="Super Resolution Image">
+                    <span class="cd-image-label" data-type="original">SR</span>
+
+                    <div class="cd-resize-img"> <!-- the resizable image on top -->
+                        <img src="./slidder_image/butterfly_LR_resized.png" alt="Low Resolution Image">
+                        <span class="cd-image-label" data-type="modified">LR</span>
+                    </div>
+
+                    <span class="cd-handle"></span>
+                </figure>
+            </div>
+            <div class="col themed-grid-col is-visible">
+                HAT-S with Patch-Mosaic | Upscale X4
+                <figure class="cd-image-container">
+                    <img src="./slidder_image/butterfly_250000_X4_Patch-Mosaic.png" alt="Super Resolution Image">
+                    <span class="cd-image-label" data-type="original">SR</span>
+
+                    <div class="cd-resize-img"> <!-- the resizable image on top -->
+                        <img src="./slidder_image/butterfly_LR_resized.png" alt="Low Resolution Image">
+                        <span class="cd-image-label" data-type="modified">LR</span>
+                    </div>
+
+                    <span class="cd-handle"></span>
+                </figure>
+            </div>
+            <div class="col themed-grid-col is-visible">
+                HAT-S uses Perceptual Loss | Upscale X4
+                <figure class="cd-image-container">
+                    <img src="./slidder_image/butterfly_250000_X4_PerceptualLoss.png" alt="Super Resolution Image">
+                    <span class="cd-image-label" data-type="original">SR</span>
+
+                    <div class="cd-resize-img"> <!-- the resizable image on top -->
+                        <img src="./slidder_image/butterfly_LR_resized.png" alt="Low Resolution Image">
+                        <span class="cd-image-label" data-type="modified">LR</span>
+                    </div>
+
+                    <span class="cd-handle"></span>
+                </figure>
+            </div>
+            <div class="col themed-grid-col is-visible">
+                HAT-S uses MixLosses Loss | Upscale X4
+                <figure class="cd-image-container">
+                    <img src="./slidder_image/butterfly_250000_X4_MixLosses.png" alt="Super Resolution Image">
+                    <span class="cd-image-label" data-type="original">SR</span>
+
+                    <div class="cd-resize-img"> <!-- the resizable image on top -->
+                        <img src="./slidder_image/butterfly_LR_resized.png" alt="Low Resolution Image">
+                        <span class="cd-image-label" data-type="modified">LR</span>
+                    </div>
+
+                    <span class="cd-handle"></span>
+                </figure>
+            </div>
+            <div class="col themed-grid-col is-visible">
+                HAT-S | Upscale X8
+                <figure class="cd-image-container">
+                    <img src="./slidder_image/butterfly_250000_X8_from_scratch.png" alt="Super Resolution Image">
+                    <span class="cd-image-label" data-type="original">SR</span>
+
+                    <div class="cd-resize-img"> <!-- the resizable image on top -->
+                        <img src="./slidder_image/butterfly_LR_X8.png" alt="Low Resolution Image">
+                        <span class="cd-image-label" data-type="modified">LR</span>
+                    </div>
+
+                    <span class="cd-handle"></span>
+                </figure>
+            </div>
+            <div class="col themed-grid-col is-visible">
+                HAT-S with Patch-Mosaic | Upscale X8
+                <figure class="cd-image-container">
+                    <img src="./slidder_image/butterfly_250000_X8_Patch-Mosaic.png" alt="Super Resolution Image">
+                    <span class="cd-image-label" data-type="original">SR</span>
+
+                    <div class="cd-resize-img"> <!-- the resizable image on top -->
+                        <img src="./slidder_image/butterfly_LR_X8.png" alt="Low Resolution Image">
+                        <span class="cd-image-label" data-type="modified">LR</span>
+                    </div>
+
+                    <span class="cd-handle"></span>
+                </figure>
+            </div>
+            <div class="col themed-grid-col is-visible">
+                HAT-S uses Perceptual Loss | Upscale X8
+                <figure class="cd-image-container ">
+                    <img src="./slidder_image/butterfly_250000_X8_PerceptualLoss.png" alt="Super Resolution Image">
+                    <span class="cd-image-label" data-type="original">SR</span>
+
+                    <div class="cd-resize-img"> <!-- the resizable image on top -->
+                        <img src="./slidder_image/butterfly_LR_X8.png" alt="Low Resolution Image">
+                        <span class="cd-image-label" data-type="modified">LR</span>
+                    </div>
+
+                    <span class="cd-handle"></span>
+                </figure>
+            </div>
+            <div class="col themed-grid-col">
+                HAT-S uses MixLosses Loss | Upscale X8
+                <figure class="cd-image-container is-visible">
+                    <img src="./slidder_image/butterfly_250000_X8_MixLosses.png" alt="Super Resolution Image">
+                    <span class="cd-image-label" data-type="original">SR</span>
+
+                    <div class="cd-resize-img"> <!-- the resizable image on top -->
+                        <img src="./slidder_image/butterfly_LR_X8.png" alt="Low Resolution Image">
+                        <span class="cd-image-label" data-type="modified">LR</span>
+                    </div>
+
+                    <span class="cd-handle"></span>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="bootstrap" viewBox="0 0 118 94">
+            <title>Bootstrap</title>
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z">
+            </path>
+        </symbol>
+        <symbol id="facebook" viewBox="0 0 16 16">
+            <path
+                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+
+        </symbol>
+        <symbol id="drive" viewBox="0 0 16 16" alt="drive">
+            <path d="M4.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+            <path
+                d="M16 11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V9.51c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198V11zM3.655 4.26 1.592 8.043C1.724 8.014 1.86 8 2 8h12c.14 0 .276.014.408.042L12.345 4.26a.5.5 0 0 0-.439-.26H4.094a.5.5 0 0 0-.44.26zM1 10v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z" />
+
+        </symbol>
+        <symbol id="github" viewBox="0 0 16 16" alt="github">
+            <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+        </symbol>
+    </svg>
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-body-secondary">Group GFA23AI17 - project FA23AI08</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-body-secondary"
+                        href="https://github.com/ngoduythinh250601/HAT-experiment.git" target="_blank"><svg class="bi"
+                            width="24" height="24">
+                            <use xlink:href="#github"></use>
+                        </svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary"
+                        href="https://drive.google.com/drive/folders/1rtrWZ_BP1QOc4smIZqenU_G7Uro3pOQW?usp=sharing"
+                        target="_blank"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#drive"></use>
+                        </svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="https://www.facebook.com/thinhduy2506 "
+                        target="_blank"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#facebook"></use>
+                        </svg></a></li>
+            </ul>
+        </footer>
+    </div>
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="./js/fetch.js"></script>
+
+</html>

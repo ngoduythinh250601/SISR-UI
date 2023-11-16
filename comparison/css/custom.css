@@ -1,0 +1,43 @@
+.bg-color-psnr {
+    background-color: rgba(158, 255, 252, 0.3) !important;
+}
+
+.bg-color-ssim {
+    background-color: rgba(255, 229, 222, 0.3) !important;
+}
+
+.zoom-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.zoom-container img {
+    transition: transform 0.3s;
+}
+
+.zoom-container:hover img {
+    transform: scale(2);
+}
+
+.tiles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.tile {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.photo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: transform .5s ease-out;
+}

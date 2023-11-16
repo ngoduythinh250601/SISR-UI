@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SISR</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/navbar-fixed.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/features.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+
+<body style="background-color: white; font-family: Open Sans, sans-serif;">
+    <nav class="navbar navbar-expand-md border-bottom fixed-top bg-light fw-medium">
+        <div class="container-fluid">
+            <!-- <a class="navbar-brand " href="#">HAT-S Experiment</a> -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../demo/index.html">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../example/index.html">Examples</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Comparison</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="container px-4 py-5">
+            <h2 class="pb-2 fw-bold border-bottom">HAT-S experiment on DIV2K dataset</h2>
+            <div class="row d-flex">
+                <div class="row row-cols-1 row-cols-md-2 align-items-md-center py-5">
+                    <div class="col d-flex flex-column align-items-start gap-2">
+                        <h2 class="fw-semibold text-body-emphasis">Compare the results of 3 experiments on the HAT-S
+                            model
+                        </h2>
+                        <p class="text-body-secondary">Visualize the results of 3 experiments on the HAT-S model.
+                            Information to be visualized includes PSNR, SSIM score statistics, representative SR images
+                            of
+                            Set5, Set14, BSD100, Manga109.
+                        </p>
+                    </div>
+
+                    <div class="col">
+                        <div class="row row-cols-1 row-cols-sm-2 g-4">
+                            <div class="col d-flex flex-column gap-2">
+                                <div
+                                    class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                                    <svg class="bi" width="1em" height="1em">
+                                        <use xlink:href="#cpu-fill"></use>
+                                    </svg>
+                                </div>
+                                <h4 class="fw-semibold mb-0 text-body-emphasis">HAT-S original</h4>
+                                <p class="text-body-secondary">The HAT-S model was reused without changing anything.
+                                </p>
+                            </div>
+
+                            <div class="col d-flex flex-column gap-2">
+                                <div
+                                    class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                                    <svg class="bi" width="1em" height="1em">
+                                        <use xlink:href="#toggles2"></use>
+                                    </svg>
+                                </div>
+                                <h4 class="fw-semibold mb-0 text-body-emphasis">HAT-S applies Patch-Mosaic</h4>
+                                <p class="text-body-secondary">Train on the DIV2K dataset with Patch-Mosaic data
+                                    augmentation applied.
+                                </p>
+                            </div>
+
+                            <div class="col d-flex flex-column gap-2">
+                                <div
+                                    class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                                    <svg class="bi" width="1em" height="1em">
+                                        <use xlink:href="#tools"></use>
+                                    </svg>
+                                </div>
+                                <h4 class="fw-semibold mb-0 text-body-emphasis">HAT-S applies Perceptual Loss</h4>
+                                <p class="text-body-secondary">Use Perceptual Loss to replace L1Loss for model training
+                                    (select conv2_2 block in VGG19 network).
+                                </p>
+                            </div>
+
+                            <div class="col d-flex flex-column gap-2">
+                                <div
+                                    class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                                    <svg class="bi" width="1em" height="1em">
+                                        <use xlink:href="#tools"></use>
+                                    </svg>
+                                </div>
+                                <h4 class="fw-semibold mb-0 text-body-emphasis">HAT-S applies MixLosses Loss</h4>
+                                <p class="text-body-secondary">Use MixLosses Loss, which is a custom loss combined from
+                                    Perceptual Loss and L1 Loss.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="fw-semibold text-body-emphasis pt-5">Datasets</h2>
+                <table class="table table-responsive caption-top">
+                    <caption class="text-body-secondary px-2">
+                        <ul>
+                            <li>DIV2K: consisting of 800 images with different scenes for training models.</li>
+                            <li>DIV2K-Patch-Mosaic: Includes DIV2K and an additional 200 images generated by
+                                Patch-Mosaic data augmentation method.</li>
+                            <li>Set5, Set14, BSD100, Manga109: includes many images with different scenes used for model testing.</li>
+                        </ul>
+                        <ul class="list-unstyled">
+                            <li>Below are some typical images of these datasets.</li>
+                        </ul>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th>DIV2K</th>
+                            <th>Set5</th>
+                            <th>Set14</th>
+                            <th>BSD100</th>
+                            <th>Manga109</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="width: 175px;">
+                                    <div id="carouselDIV2K" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselDIV2K" data-bs-slide-to="0"
+                                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselDIV2K" data-bs-slide-to="1"
+                                                class="" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselDIV2K" data-bs-slide-to="2"
+                                                class="" aria-label="Slide 3"></button>
+                                            <button type="button" data-bs-target="#carouselDIV2K" data-bs-slide-to="3"
+                                                class="" aria-label="Slide 4"></button>
+                                            <button type="button" data-bs-target="#carouselDIV2K" data-bs-slide-to="4"
+                                                class="" aria-label="Slide 5"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/DIV2K/0001.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/DIV2K/0036.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/DIV2K/0407.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/DIV2K/0275.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/DIV2K/0134.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselDIV2K" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselDIV2K" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 175px;">
+                                    <div id="carouselSet5" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselSet5" data-bs-slide-to="0"
+                                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselSet5" data-bs-slide-to="1"
+                                                class="" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselSet5" data-bs-slide-to="2"
+                                                class="" aria-label="Slide 3"></button>
+                                            <button type="button" data-bs-target="#carouselSet5" data-bs-slide-to="3"
+                                                class="" aria-label="Slide 4"></button>
+                                            <button type="button" data-bs-target="#carouselSet5" data-bs-slide-to="4"
+                                                class="" aria-label="Slide 5"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set5/baby.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set5/bird.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set5/butterfly.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set5/head.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set5/woman.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselSet5" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselSet5" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 175px;">
+                                    <div id="carouselSet14" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselSet14" data-bs-slide-to="0"
+                                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselSet14" data-bs-slide-to="1"
+                                                class="" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselSet14" data-bs-slide-to="2"
+                                                class="" aria-label="Slide 3"></button>
+                                            <button type="button" data-bs-target="#carouselSet14" data-bs-slide-to="3"
+                                                class="" aria-label="Slide 4"></button>
+                                            <button type="button" data-bs-target="#carouselSet14" data-bs-slide-to="4"
+                                                class="" aria-label="Slide 5"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set14/baboon.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set14/comic.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set14/foreman.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set14/lenna.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Set14/zebra.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselSet14" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselSet14" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 175px;">
+                                    <div id="carouselBSD100" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselBSD100" data-bs-slide-to="0"
+                                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselBSD100" data-bs-slide-to="1"
+                                                class="" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselBSD100" data-bs-slide-to="2"
+                                                class="" aria-label="Slide 3"></button>
+                                            <button type="button" data-bs-target="#carouselBSD100" data-bs-slide-to="3"
+                                                class="" aria-label="Slide 4"></button>
+                                            <button type="button" data-bs-target="#carouselBSD100" data-bs-slide-to="4"
+                                                class="" aria-label="Slide 5"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/BSD100/12084.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/BSD100/126007.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/BSD100/3096.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/BSD100/38092.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/BSD100/65033.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselBSD100" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselBSD100" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 175px;">
+                                    <div id="carouselManga109" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselManga109"
+                                                data-bs-slide-to="0" class="active" aria-current="true"
+                                                aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselManga109"
+                                                data-bs-slide-to="1" class="" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselManga109"
+                                                data-bs-slide-to="2" class="" aria-label="Slide 3"></button>
+                                            <button type="button" data-bs-target="#carouselManga109"
+                                                data-bs-slide-to="3" class="" aria-label="Slide 4"></button>
+                                            <button type="button" data-bs-target="#carouselManga109"
+                                                data-bs-slide-to="4" class="" aria-label="Slide 5"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Manga109/AisazuNihaIrarenai.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Manga109/HarukaRefrain.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Manga109/PikaruGenkiDesu.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Manga109/TouyouKidan.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/Manga109/UltraEleven.png'); height: 200px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselManga109" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselManga109" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2 class="fw-semibold text-body-emphasis pt-5">Training results</h2>
+                <table class="table table-hover table-bordered table-responsive caption-top">
+                    <caption class="text-body-secondary px-2">
+                        PSNR and SSIM scores at iteration 250,000 with Upscale x4
+                    </caption>
+                    <thead class="table-success text-center">
+                        <tr>
+                            <th class="table" colspan="2">Upscale x4</th>
+                            <th colspan="2">Set5</th>
+                            <th colspan="2">Set14</th>
+                            <th colspan="2">BSD100</th>
+                            <th colspan="2">Manga109</th>
+                        </tr>
+                        <tr>
+                            <th>Model name</th>
+                            <th>Data training</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>HAT-S original</td>
+                            <td>DIV2K</td>
+                            <td class="bg-color-psnr">32.5212</td>
+                            <td class="bg-color-ssim">0.9007</td>
+                            <td class="bg-color-psnr">28.9322</td>
+                            <td class="bg-color-ssim">0.7904</td>
+                            <td class="bg-color-psnr">27.8104</td>
+                            <td class="bg-color-ssim">0.7451</td>
+                            <td class="bg-color-psnr">31.5377</td>
+                            <td class="bg-color-ssim">0.9204</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S applies Patch-Mosaic</td>
+                            <td>DIV2K-Patch-Mosaic</td>
+                            <td class="bg-color-psnr">32.5495</td>
+                            <td class="bg-color-ssim">0.9003</td>
+                            <td class="bg-color-psnr">28.9117</td>
+                            <td class="bg-color-ssim">0.7887</td>
+                            <td class="bg-color-psnr">27.8047</td>
+                            <td class="bg-color-ssim">0.7434</td>
+                            <td class="bg-color-psnr">31.4505</td>
+                            <td class="bg-color-ssim">0.9189</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S applies Perceptual Loss</td>
+                            <td>DIV2K</td>
+                            <td class="bg-color-psnr">24.8312</td>
+                            <td class="bg-color-ssim">0.5556</td>
+                            <td class="bg-color-psnr">22.7208</td>
+                            <td class="bg-color-ssim">0.4441</td>
+                            <td class="bg-color-psnr">22.2498</td>
+                            <td class="bg-color-ssim">0.4102</td>
+                            <td class="bg-color-psnr">23.7510</td>
+                            <td class="bg-color-ssim">0.5683</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S applies MixLosses Loss</td>
+                            <td>DIV2K</td>
+                            <td class="bg-color-psnr">32.2521</td>
+                            <td class="bg-color-ssim">0.8895</td>
+                            <td class="bg-color-psnr">28.6563</td>
+                            <td class="bg-color-ssim">0.7765</td>
+                            <td class="bg-color-psnr">27.5692</td>
+                            <td class="bg-color-ssim">0.7307</td>
+                            <td class="bg-color-psnr">31.3707</td>
+                            <td class="bg-color-ssim">0.9110</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-hover table-bordered table-responsive caption-top">
+                    <caption class="text-body-secondary px-2">
+                        PSNR and SSIM scores at iteration 250,000 with Upscale x8
+                    </caption>
+                    <thead class="table-success text-center">
+                        <tr>
+                            <th class="table" colspan="2">Upscale x8</th>
+                            <th colspan="2">Set5</th>
+                            <th colspan="2">Set14</th>
+                            <th colspan="2">BSD100</th>
+                            <th colspan="2">Manga109</th>
+                        </tr>
+                        <tr>
+                            <th>Model name</th>
+                            <th>Data training</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>HAT-S original</td>
+                            <td>DIV2K</td>
+                            <td class="bg-color-psnr">27.0292</td>
+                            <td class="bg-color-ssim">0.7772</td>
+                            <td class="bg-color-psnr">24.9616</td>
+                            <td class="bg-color-ssim">0.6417</td>
+                            <td class="bg-color-psnr">24.8562</td>
+                            <td class="bg-color-ssim">0.5999</td>
+                            <td class="bg-color-psnr">24.3221</td>
+                            <td class="bg-color-ssim">0.7659</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S applies Patch-Mosaic</td>
+                            <td>DIV2K-Patch-Mosaic</td>
+                            <td class="bg-color-psnr">27.0053</td>
+                            <td class="bg-color-ssim">0.7772</td>
+                            <td class="bg-color-psnr">24.9665</td>
+                            <td class="bg-color-ssim">0.6406</td>
+                            <td class="bg-color-psnr">24.8450</td>
+                            <td class="bg-color-ssim">0.5993</td>
+                            <td class="bg-color-psnr">24.1906</td>
+                            <td class="bg-color-ssim">0.7604</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S applies Perceptual Loss</td>
+                            <td>DIV2K</td>
+                            <td class="bg-color-psnr">22.7417</td>
+                            <td class="bg-color-ssim">0.4944</td>
+                            <td class="bg-color-psnr">22.0015</td>
+                            <td class="bg-color-ssim">0.4388</td>
+                            <td class="bg-color-psnr">22.2487</td>
+                            <td class="bg-color-ssim">0.4207</td>
+                            <td class="bg-color-psnr">21.1847</td>
+                            <td class="bg-color-ssim">0.5419</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S applies MixLosses Loss</td>
+                            <td>DIV2K</td>
+                            <td class="bg-color-psnr">26.8734</td>
+                            <td class="bg-color-ssim">0.7681</td>
+                            <td class="bg-color-psnr">24.8608</td>
+                            <td class="bg-color-ssim">0.6316</td>
+                            <td class="bg-color-psnr">24.7843</td>
+                            <td class="bg-color-ssim">0.5909</td>
+                            <td class="bg-color-psnr">24.3389</td>
+                            <td class="bg-color-ssim">0.7666</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2 class="fw-semibold text-body-emphasis pt-5">Visualization</h2>
+                <p class="text-body-secondary">Show the results with representative images for each of the above models.
+                </p>
+                <table class="table table-responsive text-center caption-top">
+                    <caption class="text-body-secondary text-center fw-bold">HAT-S original</caption>
+                    <thead>
+                        <tr>
+                            <th>Low Resolution</th>
+                            <th>Super Resolution x4</th>
+                            <th>Super Resolution x8</th>
+                            <th>Ground Truth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Set5/LR-bird.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Set5/bird_HAT-S_SRx4_from_scratch.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Set5/bird_HAT-S_SRx8_from_scratch.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Set5/HR-bird.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-responsive text-center caption-top">
+                    <caption class="text-body-secondary text-center fw-bold">HAT-S applies Patch-Mosaic</caption>
+                    <thead>
+                        <tr>
+                            <th>Low Resolution</th>
+                            <th>Super Resolution x4</th>
+                            <th>Super Resolution x8</th>
+                            <th>Ground Truth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Set14/LR-lenna.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Set14/lenna_HAT-S_SRx4_Patch-Mosaic.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Set14/lenna_HAT-S_SRx8_Patch-Mosaic.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Set14/HR-lenna.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-responsive text-center caption-top">
+                    <caption class="text-body-secondary text-center fw-bold">HAT-S applies Perceptual Loss</caption>
+                    <thead>
+                        <tr>
+                            <th>Low Resolution</th>
+                            <th>Super Resolution x4</th>
+                            <th>Super Resolution x8</th>
+                            <th>Ground Truth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/BSD100/LR-37073.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/BSD100/37073_HAT-S_SRx4_PerceptualLoss_conv2_2.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/BSD100/37073_HAT-S_SRx8_PerceptualLoss_conv2_2.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/BSD100/HR-37073.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-responsive text-center caption-top">
+                    <caption class="text-body-secondary text-center fw-bold">HAT-S applies MixLosses Loss</caption>
+                    <thead>
+                        <tr>
+                            <th>Low Resolution</th>
+                            <th>Super Resolution x4</th>
+                            <th>Super Resolution x8</th>
+                            <th>Ground Truth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Manga109/LR-Arisa.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Manga109/Arisa_HAT-S_SRx4_MixLosses.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Manga109/Arisa_HAT-S_SRx8_MixLosses.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Manga109/HR-Arisa.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="b-example-divider" style="background-color: white;"></div>
+
+        <div class="container px-4 py-5">
+            <h2 class="pb-2 fw-bold border-bottom">HAT-S experiment on custom dataset</h2>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
+                <div class="col d-flex align-items-start">
+                    <div
+                        class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                        <svg class="bi" width="1em" height="1em">
+                            <use xlink:href="#images"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="fw-semibold mb-0 text-body-emphasis">Applicable to the Vietnam-Landscape dataset</h4>
+                        <p class="text-body-secondary">The experiment uses a custom dataset of Vietnamese landscape
+                            images, using the HAT-S model pre-trained on the DIV2K dataset to continue training.</p>
+                    </div>
+                </div>
+                <div class="col d-flex align-items-start">
+                    <div
+                        class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                        <svg class="bi" width="1em" height="1em">
+                            <use xlink:href="#person-square"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="fw-semibold mb-0 text-body-emphasis">Applicable to the Human-Faces dataset</h4>
+                        <p class="text-body-secondary">The experiment uses the HAT-S model pre-trained on the DIV2K
+                            dataset to continue training on the Human-Faces dataset. Aim to be able to denoise old
+                            photos,
+                            blurry photos, black and white photos.</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="fw-semibold text-body-emphasis pt-5">Datasets</h2>
+                <table class="table table-responsive caption-top">
+                    <caption class="text-body-secondary px-2">
+                        <ul>
+                            <li>Vietnam-Landscape: includes 1000 HD images of landscapes and scenic spots in Vietnam. It
+                                is splitted to 900 for training and 100 for testing.</li>
+                            <li>Human-Faces: includes color and black-and-white photos of human faces. It is splitted to
+                                nearly 3000 images for training and more than 300 images for testing.</li>
+                        </ul>
+                        <ul class="list-unstyled">
+                            <li>Below are some typical images of these datasets.</li>
+                        </ul>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th>Vietnam-Landscape</th>
+                            <th>Human-Faces</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="width: 450px;">
+                                    <div id="carouselVNlandscape" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="0" class="active" aria-current="true"
+                                                aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="1" class="" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="2" class="" aria-label="Slide 3"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="3" class="" aria-label="Slide 4"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="4" class="" aria-label="Slide 5"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="5" class="" aria-label="Slide 6"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="6" class="" aria-label="Slide 7"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="7" class="" aria-label="Slide 8"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="8" class="" aria-label="Slide 9"></button>
+                                            <button type="button" data-bs-target="#carouselVNlandscape"
+                                                data-bs-slide-to="9" class="" aria-label="Slide 10"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00713.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00832.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00834.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00849.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00922.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00939.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00477.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00718.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00750.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/VietnamLandscape/00825.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselVNlandscape" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselVNlandscape" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 450px;">
+                                    <div id="carouselHumanFaces" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="0" class="active" aria-current="true"
+                                                aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="1" class="" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="2" class="" aria-label="Slide 3"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="3" class="" aria-label="Slide 4"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="4" class="" aria-label="Slide 5"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="5" class="" aria-label="Slide 6"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="6" class="" aria-label="Slide 7"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="7" class="" aria-label="Slide 8"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="8" class="" aria-label="Slide 9"></button>
+                                            <button type="button" data-bs-target="#carouselHumanFaces"
+                                                data-bs-slide-to="9" class="" aria-label="Slide 10"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/0000.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/0045.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/0100.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/0111.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/0234.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/0239.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/1186.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/1214.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/3171.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item">
+                                                <div class="card card-cover"
+                                                    style="background-image: url('images/HumanFaces/3294.png'); height: 350px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselHumanFaces" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselHumanFaces" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="fw-semibold text-body-emphasis pt-5">Training results</h2>
+                <table class="table table-bordered table-responsive caption-top">
+                    <caption class="text-body-secondary px-2">
+                        PSNR and SSIM scores at iteration 250,000, finetune from DIV2K pretrain
+                    </caption>
+                    <thead class="table-success text-center align-middle">
+                        <tr>
+                            <th class="table" colspan="3"> </th>
+                            <th colspan="2">Vietnam Landscape</th>
+                            <th colspan="2">Human Faces</th>
+                            <th colspan="2">Set5</th>
+                            <th colspan="2">Set14</th>
+                            <th colspan="2">BSD100</th>
+                        </tr>
+                        <tr>
+                            <th>Model name</th>
+                            <th>Data training</th>
+                            <th>Upscale</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                            <th class="text-center align-middle bg-color-psnr">PSNR</th>
+                            <th class="text-center align-middle bg-color-ssim">SSIM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>HAT-S for VN landscape</td>
+                            <td>Vietnam-Landscape</td>
+                            <td class="text-center align-middle">X4</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">x</td>
+                            <td class="bg-color-ssim text-center align-middle">x</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S for VN landscape</td>
+                            <td>Vietnam-Landscape</td>
+                            <td class="text-center align-middle">X8</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">x</td>
+                            <td class="bg-color-ssim text-center align-middle">x</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S denoise</td>
+                            <td>Human-Faces</td>
+                            <td class="text-center align-middle">X4</td>
+                            <td class="bg-color-psnr text-center align-middle">x</td>
+                            <td class="bg-color-ssim text-center align-middle">x</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                        </tr>
+                        <tr>
+                            <td>HAT-S denoise</td>
+                            <td>Human-Faces</td>
+                            <td class="text-center align-middle">X8</td>
+                            <td class="bg-color-psnr text-center align-middle">x</td>
+                            <td class="bg-color-ssim text-center align-middle">x</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                            <td class="bg-color-psnr text-center align-middle">1234</td>
+                            <td class="bg-color-ssim text-center align-middle">5678</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2 class="fw-semibold text-body-emphasis pt-5">Visualization</h2>
+                <p class="text-body-secondary">Show the results with representative images for each of the above models.
+                </p>
+                <table class="table table-responsive text-center caption-top">
+                    <caption class="text-body-secondary text-center fw-bold">HAT-S for VN landscape</caption>
+                    <thead>
+                        <tr>
+                            <th>Low Resolution</th>
+                            <th>Super Resolution x4</th>
+                            <th>Super Resolution x8</th>
+                            <th>Ground Truth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/BSD100/LR-37073.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/BSD100/37073_HAT-S_SRx4_PerceptualLoss_conv2_2.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/BSD100/37073_HAT-S_SRx8_PerceptualLoss_conv2_2.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/BSD100/HR-37073.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-responsive text-center caption-top">
+                    <caption class="text-body-secondary text-center fw-bold">HAT-S denoise</caption>
+                    <thead>
+                        <tr>
+                            <th>Low Resolution</th>
+                            <th>Super Resolution x4</th>
+                            <th>Super Resolution x8</th>
+                            <th>Ground Truth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Manga109/LR-Arisa.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Manga109/Arisa_HAT-S_SRx4_MixLosses.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Manga109/Arisa_HAT-S_SRx8_MixLosses.png">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card" style="height: 200px; width: 250px;">
+                                    <div class="tiles">
+                                        <div class="tile" data-scale="3"
+                                            data-image="./images/Visualization/Manga109/HR-Arisa.png"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-body-secondary">Group GFA23AI17 - project FA23AI08</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-body-secondary"
+                        href="https://github.com/ngoduythinh250601/HAT-experiment.git" target="_blank"><svg class="bi"
+                            width="24" height="24">
+                            <use xlink:href="#github"></use>
+                        </svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary"
+                        href="https://drive.google.com/drive/folders/1rtrWZ_BP1QOc4smIZqenU_G7Uro3pOQW?usp=sharing"
+                        target="_blank"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#drive"></use>
+                        </svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="https://www.facebook.com/thinhduy2506 "
+                        target="_blank"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#facebook"></use>
+                        </svg></a></li>
+            </ul>
+        </footer>
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+            <symbol id="bootstrap" viewBox="0 0 118 94">
+                <title>Bootstrap</title>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z">
+                </path>
+            </symbol>
+            <symbol id="facebook" viewBox="0 0 16 16">
+                <path
+                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+
+            </symbol>
+            <symbol id="drive" viewBox="0 0 16 16" alt="drive">
+                <path d="M4.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                <path
+                    d="M16 11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V9.51c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198V11zM3.655 4.26 1.592 8.043C1.724 8.014 1.86 8 2 8h12c.14 0 .276.014.408.042L12.345 4.26a.5.5 0 0 0-.439-.26H4.094a.5.5 0 0 0-.44.26zM1 10v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z" />
+
+            </symbol>
+            <symbol id="github" viewBox="0 0 16 16" alt="github">
+                <path
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+            </symbol>
+
+            <symbol id="cpu-fill" viewBox="0 0 16 16">
+                <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"></path>
+                <path
+                    d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z">
+                </path>
+            </symbol>
+            <symbol id="toggles2" viewBox="0 0 16 16">
+                <path d="M9.465 10H12a2 2 0 1 1 0 4H9.465c.34-.588.535-1.271.535-2 0-.729-.195-1.412-.535-2z"></path>
+                <path
+                    d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm.535-10a3.975 3.975 0 0 1-.409-1H4a1 1 0 0 1 0-2h2.126c.091-.355.23-.69.41-1H4a2 2 0 1 0 0 4h2.535z">
+                </path>
+                <path d="M14 4a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"></path>
+            </symbol>
+            <symbol id="tools" viewBox="0 0 16 16">
+                <path
+                    d="M1 0L0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z">
+                </path>
+            </symbol>
+            <symbol id="images" viewBox="0 0 16 16">
+                <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                <path
+                    d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z" />
+            </symbol>
+            <symbol id="person-square" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path
+                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
+            </symbol>
+        </svg>
+    </main>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script src="./js/script.js"></script>
+
+</html>
