@@ -58,7 +58,6 @@
 </script>
 
 <body style="background-color: white; font-family: Open Sans, sans-serif;">
-
     <nav class="navbar navbar-expand-md border-bottom fixed-top bg-light fw-medium">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -67,22 +66,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../demo/index.html">Demo</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">Demo</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../demo/index.html">Main task</a></li>
+                            <li><a class="dropdown-item" href="../additional_demo/index.html">Additional task</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Examples</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="../model_overview/index.html">Details</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="../comparison/index.html">Comparison</a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../about_us/index.html">About Us</a>
+                    </li>
                 </ul>
-
             </div>
         </div>
     </nav>
-    <br>
-    <br>
+
     <div class="container px-4 py-5">
         <h2 class="pb-2 fw-bold border-bottom">Sample photos processed on HAT-S models with upscale x4.</h2>
         <br>
@@ -132,7 +140,6 @@
                 </div>
             </div>
         </div>
-        <div class="b-example-divider" style="background-color: white;"></div>
         <div class="row mb-3 text-center">
             <div class="col-md-6 themed-grid-col">
                 <p class="h3">HAT-S with PerceptualLoss</p>
@@ -179,8 +186,9 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
+    </div>
+    <div class="b-example-divider" style="background-color: white;"></div>
+    <div class="container px-4 py-5">
         <h2 class="pb-2 fw-bold border-bottom">Sample photos processed on HAT-S models with upscale x8.</h2>
         <br>
         <div class="row mb-3 text-center">
@@ -229,7 +237,6 @@
                 </div>
             </div>
         </div>
-        <div class="b-example-divider" style="background-color: white;"></div>
         <div class="row mb-3 text-center">
             <div class="col-md-6 themed-grid-col">
                 <p class="h3">HAT-S with PerceptualLoss</p>

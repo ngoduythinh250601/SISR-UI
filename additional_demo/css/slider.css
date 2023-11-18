@@ -1,0 +1,105 @@
+img {
+    vertical-align: bottom;
+    max-width: 100%;
+    height: auto;
+}
+
+.block--comparison {
+    /* hide shadow */
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+    width: 90%; /* Adjust the container width as needed */
+    min-height: 30vh; /* Adjust the container height as needed */
+}
+
+.block--comparison .block__image {
+    --range: 30%; /* Adjust the initial position of the slider */
+    /* to position elements above each other */
+    display: grid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* position 2 images and range slider above each other*/
+.block--comparison .block__img {
+    grid-column: -1 / 1;
+    grid-row: -1 / 1;
+    overflow: hidden;
+}
+
+/* move div to right*/
+.block__img--last {
+    box-shadow: 0 0 10px rgba(0, 0, 0, .9);
+    transform: translateX(calc(var(--range) - 100%));
+}
+
+/* compensation right movement*/
+.block__img--last img {
+    transform: translateX(calc(100% - var(--range)));
+}
+
+/* Range Slider */
+.block__slide {
+    /* scale range slider to size of image container */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* hide range slider */
+    opacity: 0;
+}
+
+/*********************
+    OPTIONAL Custom Styling
+  *********************/
+.block--comparison .block__img {
+    /* just to fit the container */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.img-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 767px) {
+    .block--comparison {
+        width: 95%;
+        min-height: 55vh;
+    }
+}
+
+/* Maintain aspect ratio for images */
+@media (max-width: 767px) {
+    .block--comparison .block__img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+/* display full image */
+@media (max-width: 767px) {
+    .themed-grid-col {
+        flex-direction: column; /* Đổi hướng của flex container thành cột */
+        align-items: center; /* Căn giữa theo chiều ngang */
+        text-align: center; /* Căn giữa nội dung theo chiều ngang */
+    }
+
+    .d-flex {
+        flex-direction: column; /* Đổi hướng của flex container trong d-flex thành cột */
+    }
+}

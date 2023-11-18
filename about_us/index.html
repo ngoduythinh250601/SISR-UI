@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SISR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/social_link.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body style="background-color: white; font-family: Open Sans, sans-serif;">
+    <nav class="navbar navbar-expand-md border-bottom fixed-top bg-light fw-medium">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">Demo</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../demo/index.html">Main task</a></li>
+                            <li><a class="dropdown-item" href="../additional_demo/index.html">Additional task</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../example/index.html">Examples</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../model_overview/index.html">Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../comparison/index.html">Comparison</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active" aria-current="page" href="#">About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="container">
+        <div class="container px-4 py-5">
+            <section class="py-3 py-md-5 py-xl-8">
+                <div class="container">
+                    <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
+                        <div class="col-12 col-lg-6 col-xl-5">
+                            <img class="img-fluid rounded" loading="lazy" src="./images/intro.jfif" alt="">
+                        </div>
+                        <div class="col-12 col-lg-6 col-xl-7">
+                            <div class="row justify-content-xl-center">
+                                <div class="col-12 col-xl-11">
+                                    <h2 class="fw-semibold pt-5">What are we doing?</h2>
+                                    <p class="text-body-secondary mb-3">We want to help people improve the quality of
+                                        many different types of images. Using the power of machine learning and
+                                        artificial intelligence, we have applied state of the art models to the field of
+                                        Single-Image Super-Solution. Our vision is to create better quality photos,
+                                        bringing a better visual experience to everyone.</p>
+                                    <br>
+                                    <div class="row gy-4 gy-md-0 gx-xxl-5X">
+                                        <div class="col-12 col-md-6">
+                                            <div class="d-flex">
+                                                <div class="me-4 text-primary">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                        fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h4>Main SISR task</h4>
+                                                    <p class="text-secondary mb-0">We focus on improving the quality of
+                                                        many images with different scenes including landscapes,
+                                                        animals, people and more.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <div class="d-flex">
+                                                <div class="me-4 text-primary">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                        fill="currentColor" class="bi bi-fire" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h4>Additional SISR task</h4>
+                                                    <p class="text-secondary mb-0">We focus on improving the quality of
+                                                        two types of images including Vietnamese landscape photos and
+                                                        old blurry photos.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <br>
+
+            <div class="container py-5">
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-6 order-2 order-lg-1"><i
+                            class="fa fa-caret-square-o-right fa-3x mb-3 text-primary"></i>
+                        <h2 class="font-weight-light">Demo</h2>
+                        <p class="font-italic text-muted mb-4">This page includes basic functions such as uploading
+                            images, processing and downloading images. In addition, it also provides photo samples of
+                            different models and offers options to change the model according to your preferences.
+                            Upload your photos and experience image enhancement now!
+                        </p>
+                        <a href="../demo/index.html" class="btn btn-light px-5 rounded-pill shadow-sm">Try it now</a>
+                    </div>
+                    <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2">
+                        <img src="https://bootstrapious.com/i/snippets/sn-about/img-1.jpg" alt=""
+                            class="img-fluid mb-4 mb-lg-0">
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-5 px-5 mx-auto"><img
+                            src="https://bootstrapious.com/i/snippets/sn-about/img-2.jpg" alt=""
+                            class="img-fluid mb-4 mb-lg-0"></div>
+                    <div class="col-lg-6"><i class="fa fa-picture-o fa-3x mb-3 text-primary"></i>
+                        <h2 class="font-weight-light">Examples</h2>
+                        <p class="font-italic text-muted mb-4">Displays photo samples that have been enhanced using
+                            different models. Provides image slide functionality to easily compare low resolution images
+                            with super resolution images generated from models.
+                        </p>
+                        <a href="../example/index.html" class="btn btn-light px-5 rounded-pill shadow-sm">Access</a>
+                    </div>
+                </div>
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-book fa-3x mb-3 text-primary"></i>
+                        <h2 class="font-weight-light">Details </h2>
+                        <p class="font-italic text-muted mb-4">Describes detailed information regarding the models used
+                            by us. Includes model architecture, training options, hyperparameters, metrics.</p>
+                        <a href="../model_overview/index.html"
+                            class="btn btn-light px-5 rounded-pill shadow-sm">Access</a>
+                    </div>
+                    <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img
+                            src="https://www.brainiumacademy.com/wp-content/uploads/2023/08/brainium-academy-thum1.webp"
+                            alt="" class="img-fluid mb-4 mb-lg-0"></div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-5 px-5 mx-auto"><img src="../about_us/images/comparison.svg" alt=""
+                            class="img-fluid mb-4 mb-lg-0"></div>
+                    <div class="col-lg-6">
+                        <i class="fa fa-bar-chart fa-3x mb-3 text-primary"></i>
+                        <h2 class="font-weight-light">Comparison</h2>
+                        <p class="font-italic text-muted mb-4">Summarize results and visualize datasets, models,
+                            training results, and enhanced images.</p>
+                        <a href="../comparison/index.html" class="btn btn-light px-5 rounded-pill shadow-sm">Access</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <!-- our team-->
+            <div class="container py-5">
+                <div class="row mb-4">
+                    <i class="fa fa-users fa-3x mb-3"></i>
+                    <div class="col-lg-5">
+                        <h2 class="fw-medium ">Our team</h2>
+                        <!-- <p class="font-italic text-muted">Enhance image resolution.</p> -->
+                    </div>
+                </div>
+                <div class="row text-center justify-content-center">
+                    <!-- Team item-->
+                    <div class="col-xl-4 col-sm-7 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="./images/mentor.png" alt=""
+                                width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">Hieu Tang Quang</h5><span
+                                class="small text-uppercase text-muted">Mentor</span>
+                            <ul class="social mb-0 list-inline mt-3">
+                                <li class="list-inline-item"><a href="mailto:hieutq10@fe.edu.vn" class="social-link"
+                                        target="_blank"><i class="fa fa-envelope-o"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End-->
+                    <!-- Team item-->
+                    <div class="col-xl-4 col-sm-7 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="./images/thinh.jpg" alt=""
+                                width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">Thinh Ngo Duy</h5><span class="small text-uppercase text-muted">Leader
+                            </span>
+                            <ul class="social mb-0 list-inline mt-3">
+                                <li class="list-inline-item"><a href="https://www.facebook.com/thinhduy2506"
+                                        class="social-link" target="_blank"><i class="fa fa-facebook-f"></i></a></li>
+                                <li class="list-inline-item"><a href="tel:+84 834338820" class="social-link"
+                                        target="_blank"><i class="fa fa-phone"></i></a></li>
+                                <li class="list-inline-item"><a href="mailto:thinhndse150181@fpt.edu.vn"
+                                        class="social-link" target="_blank"><i class="fa fa-envelope-o"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End-->
+                    <!-- Team item-->
+                    <div class="col-xl-4 col-sm-7 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="./images/truong.jpg" alt=""
+                                width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">Truong Nguyen Nhat </h5><span
+                                class="small text-uppercase text-muted">Member
+                            </span>
+                            <ul class="social mb-0 list-inline mt-3">
+                                <li class="list-inline-item"><a
+                                        href="https://www.facebook.com/profile.php?id=100076529220663"
+                                        class="social-link" target="_blank"><i class="fa fa-facebook-f"></i></a></li>
+                                <li class="list-inline-item"><a href="tel:+84 867080030" class="social-link"
+                                        target="_blank"><i class="fa fa-phone"></i></a></li>
+                                <li class="list-inline-item"><a href="mailto:truongnnse150331@fpt.edu.vn"
+                                        class="social-link" target="_blank"><i class="fa fa-envelope-o"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End-->
+
+                </div>
+
+            </div>
+
+
+
+
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                        <svg class="bi" width="30" height="24">
+                            <use xlink:href="#bootstrap"></use>
+                        </svg>
+                    </a>
+                    <span class="mb-3 mb-md-0 text-body-secondary">Group GFA23AI17 - project FA23AI08</span>
+                </div>
+
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3"><a class="text-body-secondary"
+                            href="https://github.com/ngoduythinh250601/HAT-experiment.git" target="_blank"><svg
+                                class="bi" width="24" height="24">
+                                <use xlink:href="#github"></use>
+                            </svg></a></li>
+                    <li class="ms-3"><a class="text-body-secondary"
+                            href="https://drive.google.com/drive/folders/1rtrWZ_BP1QOc4smIZqenU_G7Uro3pOQW?usp=sharing"
+                            target="_blank"><svg class="bi" width="24" height="24">
+                                <use xlink:href="#drive"></use>
+                            </svg></a></li>
+                    <li class="ms-3"><a class="text-body-secondary" href="https://www.facebook.com/thinhduy2506 "
+                            target="_blank"><svg class="bi" width="24" height="24">
+                                <use xlink:href="#facebook"></use>
+                            </svg></a></li>
+                </ul>
+            </footer>
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="bootstrap" viewBox="0 0 118 94">
+                    <title>Bootstrap</title>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z">
+                    </path>
+                </symbol>
+                <symbol id="facebook" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+
+                </symbol>
+                <symbol id="drive" viewBox="0 0 16 16" alt="drive">
+                    <path d="M4.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                    <path
+                        d="M16 11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V9.51c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198V11zM3.655 4.26 1.592 8.043C1.724 8.014 1.86 8 2 8h12c.14 0 .276.014.408.042L12.345 4.26a.5.5 0 0 0-.439-.26H4.094a.5.5 0 0 0-.44.26zM1 10v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z" />
+
+                </symbol>
+                <symbol id="github" viewBox="0 0 16 16" alt="github">
+                    <path
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                </symbol>
+            </svg>
+    </main>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

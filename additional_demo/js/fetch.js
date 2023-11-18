@@ -3,10 +3,8 @@ const host_name = " https://8f13-42-118-228-189.ngrok-free.app/";
 
 const listGroupCheckableUpscalesX4 = document.getElementById("listGroupCheckableUpscales1");
 const listGroupCheckableUpscalesX8 = document.getElementById("listGroupCheckableUpscales2");
-const listGroupCheckableOriginalModel = document.getElementById("listGroupCheckableModels1");
-const listGroupCheckableMosaicModel = document.getElementById("listGroupCheckableModels2");
-const listGroupCheckablePerceptualLossModel = document.getElementById("listGroupCheckableModels3");
-const listGroupCheckableMixLossesModel = document.getElementById("listGroupCheckableModels4");
+const listGroupCheckableVNLandscapeModel = document.getElementById("listGroupCheckableModels1");
+const listGroupCheckableHumanFacesModel = document.getElementById("listGroupCheckableModels2");
 const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 const loadingSpinner = document.getElementById("loading");
 const imageFile = document.getElementById("image-file");
@@ -16,17 +14,15 @@ const textModelName = document.getElementById("modelNameDisplay");
 
 
 var scale = "SRx4";
-var modelName = 'HAT-S_from_scratch';
-var ymlFileName = 'HAT-S_SRx4_from_scratch';
+var modelName = 'HAT-S_for_VietnamLandscape';
+var ymlFileName = 'HAT-S_SRx4_for_VietnamLandscape';
 var blobFile;
 let startTime;
 let endTime;
 
 const dict_modelName = {
-    "HAT-S_from_scratch": 'HAT-S',
-    "HAT-S_Patch-Mosaic": "HAT-S with Patch-Mosaic",
-    "HAT-S_PerceptualLoss_conv2_2": "HAT-S with Perceptual Loss",
-    "HAT-S_MixLosses": "HAT-S with MixLosses Loss"
+    "HAT-S_for_VietnamLandscape": 'HAT-S for Vietnam Landscape',
+    "HAT-S_denoise_HumanFaces": "HAT-S denoise Human Faces",
 };
 const dict_upscale = {
     "SRx4": 'upscale x4',
@@ -66,22 +62,16 @@ listGroupCheckableUpscalesX4.addEventListener('change', updateScale);
 listGroupCheckableUpscalesX8.addEventListener('change', updateScale);
 
 function updateModelName() {
-    if (listGroupCheckableOriginalModel.checked) {
-        modelName = "HAT-S_from_scratch";
-    } else if (listGroupCheckableMosaicModel.checked) {
-        modelName = "HAT-S_Patch-Mosaic";
-    } else if (listGroupCheckablePerceptualLossModel.checked) {
-        modelName = "HAT-S_PerceptualLoss_conv2_2";
-    } else if (listGroupCheckableMixLossesModel.checked) {
-        modelName = "HAT-S_MixLosses";
+    if (listGroupCheckableVNLandscapeModel.checked) {
+        modelName = "HAT-S_for_VietnamLandscape";
+    } else if (listGroupCheckableHumanFacesModel.checked) {
+        modelName = "HAT-S_denoise_HumanFaces";
     }
     console.log("update model name:", modelName);
     updateYmlFileName();
 };
-listGroupCheckableOriginalModel.addEventListener('change', updateModelName);
-listGroupCheckableMosaicModel.addEventListener('change', updateModelName);
-listGroupCheckablePerceptualLossModel.addEventListener('change', updateModelName);
-listGroupCheckableMixLossesModel.addEventListener('change', updateModelName);
+listGroupCheckableVNLandscapeModel.addEventListener('change', updateModelName);
+listGroupCheckableHumanFacesModel.addEventListener('change', updateModelName);
 
 const alert = (message, type) => {
     const wrapper = document.createElement('div');
