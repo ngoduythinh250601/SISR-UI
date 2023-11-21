@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="./css/grid.css">
     <link rel="stylesheet" type="text/css" href="./css/footer.css">
     <link rel="stylesheet" type="text/css" href="./css/slider.css">
+    <link rel="stylesheet" type="text/css" href="./css/fullscreen.css">
 
     <script src='https://get.mavo.io/mavo.js'></script>
 </head>
@@ -50,10 +51,8 @@
     </nav>
     <div class="container px-4">
         <div class="container-fluid my-1 themed-container text-medium" style="color:black;">
-            <div class="themed-container text-center fw-bolder display-6 mx-1" style="color: black;">ENHANCE SINGLE
-                IMAGE
-                SUPER
-                RESOLUTION</div>
+            <div class="themed-container text-center fw-bolder display-6 mx-1" style="color: black;">
+                ENHANCE SINGLE IMAGE SUPER RESOLUTION</div>
             <div class="row mb-3 mx-1 text-center">
                 <div class="col-6 themed-grid-col">
                     <div class="bd-example-snippet bd-code-snippet">
@@ -63,7 +62,8 @@
                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 300x200"
                                     preserveAspectRatio="xMidYMid slice" focusable="false">
                                     <title>Low resolution image</title>
-                                    <rect width="100%" height="100%" fill="#868e96" id="placeholder-rect"></rect>
+                                    <rect width="100%" height="100%" fill="#868e96" id="placeholder-rect"
+                                        onclick="fullScreenImage('input-image')"></rect>
                                     <text x="50%" y="50%" fill="#dee2e6" dy=".3em" id="thumbnil">Upload image</text>
                                 </svg>
                                 <figcaption class="figure-caption">Low resolution image need increased quality
@@ -83,7 +83,8 @@
                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 400x300"
                             preserveAspectRatio="none" focusable="false">
                             <title>Super resolution image</title>
-                            <rect width="100%" height="100%" fill="#868e96" id="SRImage-rect"></rect>
+                            <rect width="100%" height="100%" fill="#868e96" id="SRImage-rect"
+                                onclick="fullScreenImage('sr-image')"></rect>
                             <text style="white-space: pre-wrap" x="50%" y="50%" fill="#dee2e6" dy=".3em"
                                 id="SRImage-text">
                                 Super resolution image

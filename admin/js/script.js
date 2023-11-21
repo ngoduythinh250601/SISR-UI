@@ -129,14 +129,20 @@ function fetchToServer(request, time) {
                 response.json().then(data => {
                     console.log(data);
                     if ('feedback' in data) {
-                        if (data['feedback'] == '') return;
+                        if (data['feedback'] == '') {
+                            alertError("There are no new feedbacks", 'success')
+                            return;
+                        };
                         const feedbacks = data['feedback'].split('\n');
                         feedbacks.forEach(element => {
                             alertFeedback(element);
                             currentFeedbackDate = element.substring(0, 19);
                         });
                     } else if ('log' in data) {
-                        if (data['log'] == '') return;
+                        if (data['log'] == '') {
+                            alertError("There are no new logs", 'success')
+                            return;
+                        };
                         const logs = data['log'].split('\n');
                         logs.forEach(element => {
                             element = element.replaceAll(' | ', '<br>');
@@ -171,7 +177,7 @@ function fetchToServer(request, time) {
             }
         })
         .catch(error => {
-            alertError('Fetch error!', 'danger');
+            alertError('Fetch error! Try again!', 'danger');
         });
 }
 

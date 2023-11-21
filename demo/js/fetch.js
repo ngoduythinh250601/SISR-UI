@@ -119,7 +119,7 @@ function submitFeedback() {
             }
         })
         .catch(error => {
-            displayResponseFeedback('Fetch error!');
+            displayResponseFeedback('Fetch error! Try again!');
             hideSpinner('waiting_spinner_feedback');
             hideWaitingStatusfeedback();
         });
@@ -172,6 +172,7 @@ function displaySRImage(file) {
         image.setAttribute('width', '100%');
         image.setAttribute('height', '100%');
         image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+        image.setAttribute('id', 'sr-image');
 
         // Set the image source to the data URL of the selected file
         image.setAttribute('href', e.target.result);
@@ -239,7 +240,7 @@ uploadBtn.addEventListener("click", e => {
         .catch(error => {
             hideSpinner('waiting_spinner');
             hideWaitingStatus();
-            alert('Fetch error!', 'warning');
+            alert('Fetch error! Try again!', 'warning');
         });
 });
 
@@ -348,6 +349,7 @@ function displayImage(input) {
         image.setAttribute('width', '100%');
         image.setAttribute('height', '100%');
         image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+        image.setAttribute('id', 'input-image');
 
         // Set the image source to the data URL of the selected file
         image.setAttribute('href', e.target.result);
@@ -367,3 +369,21 @@ function displayImage(input) {
     // Read the selected file as a data URL
     reader.readAsDataURL(file);
 };
+
+function fullScreenImage(id) {
+    const elmInputImage = document.getElementById(id);
+    if (elmInputImage == null) {
+        console.log(id + " not found!");
+        return;
+    }
+    var fullscreenInputImage = document.createElement("div");
+    fullscreenInputImage.className = "fullscreen";
+    var img = document.createElement("img");
+    img.src = elmInputImage.getAttribute('href');
+    img.alt = "Full-screen Image";
+    fullscreenInputImage.appendChild(img);
+    document.body.appendChild(fullscreenInputImage);
+    fullscreenInputImage.addEventListener("click", function () {
+        document.body.removeChild(fullscreenInputImage);
+    });
+}
