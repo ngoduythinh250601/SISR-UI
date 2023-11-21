@@ -89,17 +89,3 @@ img {
         height: 100%;
     }
 }
-
-
-/* display full image */
-@media (max-width: 767px) {
-    .themed-grid-col {
-        flex-direction: column; /* Đổi hướng của flex container thành cột */
-        align-items: center; /* Căn giữa theo chiều ngang */
-        text-align: center; /* Căn giữa nội dung theo chiều ngang */
-    }
-
-    .d-flex {
-        flex-direction: column; /* Đổi hướng của flex container trong d-flex thành cột */
-    }
-}

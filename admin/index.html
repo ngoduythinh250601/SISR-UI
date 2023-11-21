@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SISR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/grid.css">
+</head>
+
+<body style="background-color: white; font-family: Open Sans, sans-serif;">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login to access</h5>
+                </div>
+                <form id="loginForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="modalpass" class="col-form-label">Password:</label>
+                            <input type="password" name="modalpass" class="form-control" id="modalpass">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="verifyDelLogModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Enter password to access</h5>
+                </div>
+                <form id="verifyDelLogForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="modalpass" class="col-form-label">Password:</label>
+                            <input type="password" name="modalpass" class="form-control" id="verifyDelLog">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="verifyDelFbModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Enter password to access</h5>
+                </div>
+                <form id="verifyDelFbForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="modalpass" class="col-form-label">Password:</label>
+                            <input type="password" name="modalpass" class="form-control" id="verifyDelFb">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <main class="container">
+        <div class="container px-4 py-5">
+            <h2 class="pb-2 fw-bold border-bottom">Server Manager</h2>
+            <div id="liveErrorPlaceholder"></div>
+            <div class="row mb-3 text-center">
+                <div class="col-md-6 themed-grid-col bg-transparent">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="fw-semibold text-start">Logs</h2>
+                        <div class="col text-end">
+                            <button class="btn btn-primary my-1 me-1" type="button"
+                                onclick="updateLogs()">Update</button>
+                                <button class="btn btn-warning my-1 me-1" type="button" onclick="clearLogs()">Clear</button>
+                                <button class="btn btn-danger my-1" type="button" onclick="deleteLogs()">Delete</button>
+                            </div>
+                    </div>
+                    <div id="liveLogPlaceholder"></div>
+                </div>
+                <div class="col-md-6 themed-grid-col bg-transparent">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="fw-semibold text-start">Feedbacks</h2>
+                        <div class="col text-end">
+                            <button class="btn btn-primary my-1 me-1" type="button"
+                                onclick="updateFeedbacks()">Update</button>
+                            <button class="btn btn-warning my-1 me-1" type="button"
+                                onclick="clearFeedbacks()">Clear</button>
+                            <button class="btn btn-danger my-1" type="button"
+                                onclick="deleteFeedbacks()">Delete</button>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-striped table-responsive text-start">
+                        <thead class="table-success">
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th>Feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedback-table">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+
+<script src="./js/script.js"></script>
+
+</html>
