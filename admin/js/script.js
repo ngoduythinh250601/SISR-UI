@@ -1,4 +1,4 @@
-const host_name = "https://e4f5-42-118-228-189.ngrok-free.app";
+const host_name = "https://sensibly-stirring-possum.ngrok-free.app";
 
 
 const logPlaceholder = document.getElementById('liveLogPlaceholder');

@@ -1,5 +1,5 @@
 // ----- init state -------
-const host_name = "https://e4f5-42-118-228-189.ngrok-free.app";
+const host_name = "https://sensibly-stirring-possum.ngrok-free.app";
 
 const listGroupCheckableUpscalesX4 = document.getElementById("listGroupCheckableUpscales1");
 const listGroupCheckableUpscalesX8 = document.getElementById("listGroupCheckableUpscales2");
@@ -192,6 +192,7 @@ uploadBtn.addEventListener("click", e => {
     // Hiển thị biểu tượng quay khi bắt đầu xử lý
     hideProcessingTime();
     showSpinner('waiting_spinner');
+    displayWaitingStatus();
     e.preventDefault();
     // Ghi lại thời điểm bắt đầu
     startTime = new Date();
@@ -207,15 +208,19 @@ uploadBtn.addEventListener("click", e => {
         }),
         body: formData,
     };
-    displayWaitingStatus();
     fetch(host_name + '/upload', requestOptions)
         .then(response => {
             let contentType = response.headers.get('Content-Type');
+            hideSpinner('waiting_spinner');
+            hideWaitingStatus();
+            showSpinner('unpacking_spinner');
+            displayUnpackingStatus();
+
             if (contentType.includes('application/json')) {
                 response.json().then(data => {
                     console.log(data);
-                    hideSpinner('waiting_spinner');
-                    hideWaitingStatus();
+                    hideSpinner('unpacking_spinner');
+                    hideUnpackingStatus();
                     alert(data['msg'], 'warning');
                 });
             } else if (contentType.includes('image/png')) {
@@ -223,9 +228,8 @@ uploadBtn.addEventListener("click", e => {
                     displaySRImage(blob);
                     blobFile = blob;
                     endTime = new Date();
-
-                    hideSpinner('waiting_spinner');
-                    hideWaitingStatus();
+                    hideSpinner('unpacking_spinner');
+                    hideUnpackingStatus();
                     displayProcessingTime();
 
                     downloadBtn.disabled = false;
@@ -234,6 +238,8 @@ uploadBtn.addEventListener("click", e => {
                     downloadBtn.style.backgroundColor = '';
                 });
             } else {
+                hideSpinner('unpacking_spinner');
+                hideUnpackingStatus();
                 alert('Unsupported data type!', 'warning');
             }
         })
@@ -246,11 +252,20 @@ uploadBtn.addEventListener("click", e => {
 
 function displayWaitingStatus() {
     const waitingstatus = document.getElementById('waitingstatus');
-    waitingstatus.innerHTML = `Waiting...`;
+    waitingstatus.innerHTML = `Processing...`;
 };
 function displayWaitingStatusfeedback() {
     const waitingstatusfeedback = document.getElementById('waitingstatusfeedback');
     waitingstatusfeedback.innerHTML = `Waiting...`;
+};
+function displayUnpackingStatus() {
+    const waitingstatus = document.getElementById('unpackingstatus');
+    waitingstatus.innerHTML = `Unpacking...`;
+};
+function hideUnpackingStatus() {
+    const waitingstatus = document.getElementById('unpackingstatus');
+    waitingstatus.innerHTML = ``;
+
 };
 function hideWaitingStatus() {
     const waitingstatus = document.getElementById('waitingstatus');
